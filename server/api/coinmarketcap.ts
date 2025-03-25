@@ -2,7 +2,7 @@ import axios from "axios";
 import { CmcApiResponse, CmcQuotesResponse, CryptoData } from "@shared/types";
 
 // Get API key from environment (check both normal env variables and Replit secrets)
-let CMC_API_KEY = process.env.CMC_API_KEY || "";
+let CMC_API_KEY = "8685470e-9594-484c-863e-8fc6028b0dc1";
 const CMC_API_URL = "https://pro-api.coinmarketcap.com/v1";
 
 // Function to create axios instance with current API key
