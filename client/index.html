@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <script>
+      // Apply the theme before the app loads to prevent flickering
+      (function() {
+        // Check stored theme or use system preference
+        const storageTheme = localStorage.getItem('theme');
+        const theme = 
+          storageTheme ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          
+        // Apply theme class immediately
+        document.documentElement.classList.add(theme);
+        
+        // Store the theme
+        localStorage.setItem('theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Theme Debug Helper -->
+    <script>
+      // Add a global window function to toggle theme manually
+      window.toggleTheme = function() {
+        const html = document.documentElement;
+        const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        // Remove both theme classes
+        html.classList.remove('dark', 'light');
+        
+        // Add the new theme class
+        html.classList.add(newTheme);
+        
+        // Store in localStorage
+        localStorage.setItem('theme', newTheme);
+        
+        console.log(`Theme manually toggled from ${currentTheme} to ${newTheme}`);
+        return `Theme set to: ${newTheme}`;
+      };
+      
+      // Add force light/dark functions
+      window.forceDark = function() {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        console.log('Forced dark theme');
+        return 'Dark theme applied';
+      };
+      
+      window.forceLight = function() {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        console.log('Forced light theme');
+        return 'Light theme applied';
+      };
+    </script>
+  </body>
+</html>
